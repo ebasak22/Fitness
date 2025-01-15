@@ -19,7 +19,7 @@ const TrainerCard = ({ name, specialty, bio, image, certifications, socialLinks 
     <Image
       source={image}
       style={styles.trainerImage}
-      defaultSource={require('../assets/default-trainer.jpg')} // Make sure to add this image
+      defaultSource={require('../assets/default-avatar.png')} // Make sure to add this image
     />
     <View style={styles.trainerInfo}>
       <Text style={styles.trainerName}>{name}</Text>
@@ -59,7 +59,7 @@ const AboutTrainers = () => {
       name: 'John Doe',
       specialty: 'Strength Training & Conditioning',
       bio: 'Specialized in helping clients achieve their strength goals through personalized training programs.',
-      image: require('../assets/trainer1.jpg'), // Add your trainer images
+      image:require('../assets/default-avatar.png'), // Add your trainer images
       certifications: ['NASM CPT', 'CrossFit L2'],
       socialLinks: [
         { icon: 'logo-instagram', url: 'https://instagram.com' },
@@ -70,7 +70,7 @@ const AboutTrainers = () => {
       name: 'Jane Smith',
       specialty: 'Cardio & HIIT Workouts',
       bio: 'Expert in designing high-intensity interval training programs for maximum results.',
-      image: require('../assets/trainer2.jpg'), // Add your trainer images
+      image: require('../assets/default-avatar.png'), // Add your trainer images
       certifications: ['ACE Certified', 'HIIT Specialist'],
       socialLinks: [
         { icon: 'logo-instagram', url: 'https://instagram.com' },

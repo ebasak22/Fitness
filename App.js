@@ -5,26 +5,26 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 // Import your screens
-import RegisterScreen from './screens/RegisterScreen';
-import CompleteProfileScreen from './screens/CompleteProfileScreen';
-import DashboardScreen from './screens/DashboardScreen';
-import DefaultScreen from './screens/DefaultScreen';
-import MenuScreen from './screens/MenuScreen';
-import UpdateDetailsScreen from './screens/UpdateDetailsScreen';
-import MembershipDetailsScreen from './screens/MembershipDetailsScreen';
-import AboutUsScreen from './screens/AboutUsScreen';
-import ContactUsScreen from './screens/ContactUsScreen';
-import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
-import TermsConditionsScreen from './screens/TermsConditionsScreen';
-import RefundPolicyScreen from './screens/RefundPolicyScreen';
-import ProfileSettingsScreen from './screens/ProfileSettingsScreen';
-import EditProfileScreen from './screens/EditProfileScreen';
-import AddressesScreen from './screens/AddressesScreen';
-import ShippingAddressDetailScreen from './screens/ShippingAddressDetailScreen';
-import GoalSettingScreen from './screens/GoalSettingScreen';
-import WorkoutTrackerScreen from './screens/WorkoutTrackerScreen';
-import ExerciseChartScreen from './screens/ExerciseChartScreen';
-import ExerciseVideosScreen from './screens/ExerciseVideosScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
+import DashboardScreen from './src/screens/DashBoardScreen';
+import DefaultScreen from './src/screens/DefaultScreen';
+import MenuScreen from './src/screens/MenuScreen';
+import UpdateDetailsScreen from './src/screens/UpdateDetailsScreen';
+import MembershipDetailsScreen from './src/screens/MembershipDetailsScreen';
+import AboutUsScreen from './src/screens/AboutUsScreen';
+import ContactUsScreen from './src/screens/ContactUsScreen';
+import PrivacyPolicyScreen from './src/screens/PrivacyPolicyScreen';
+import TermsConditionsScreen from './src/screens/TermsConditionsScreen';
+import RefundPolicyScreen from './src/screens/RefundPolicyScreen';
+import ProfileSettingsScreen from './src/screens/ProfileSettingsScreen';
+import EditProfileScreen from './src/screens/EditProfileScreen';
+import AddressesScreen from './src/screens/AddressScreen';
+import ShippingAddressDetailScreen from './src/screens/ShippingAddressDetailsScreen';
+import GoalSettingScreen from './src/screens/GoalSettingScreen';
+import WorkoutTrackerScreen from './src/components/WorkoutTrackerScreen';
+import ExerciseChartScreen from './src/components/ExerciseChartScreen';
+import ExerciseVideosScreen from './src/components/ExerciseVideosScreen';
 
 const Stack = createNativeStackNavigator();
 

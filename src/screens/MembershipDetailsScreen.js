@@ -23,7 +23,7 @@ const trainers = [
   {
     id: 1,
     name: 'John Smith',
-    image: require('../assets/trainer1.jpg'), // You'll need to add these images to your assets
+    image: require('../assets/default-avatar.png'), // You'll need to add these images to your assets
     specialization: 'Strength & Conditioning',
     experience: '8 years',
     certifications: ['ACE Certified', 'CrossFit Level 2'],
@@ -35,7 +35,7 @@ const trainers = [
   {
     id: 2,
     name: 'Sarah Johnson',
-    image: require('../assets/trainer2.jpg'),
+    image: require('../assets/default-avatar.png'), // You'll need to add these images to your assets
     specialization: 'Weight Loss & HIIT',
     experience: '6 years',
     certifications: ['NASM Certified', 'TRX Qualified'],
