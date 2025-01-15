@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -21,6 +21,26 @@ const RegisterScreen = ({ navigation }) => {
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [confirm, setConfirm] = useState(null);
+
+  console.log('cjheddlld')
+
+  const isMember = async () => {
+
+    const userRef = firestore().collection('users').doc(phone);
+    const userDoc = await userRef.get();
+    const userData = userDoc.data();
+      console.log('ssd', userData.isMember)
+    if (userData.isMember) {
+      navigation.navigate('Dashboard')
+    }
+
+  }
+
+  useEffect(() => {
+      // isMember()
+  }, []);
+
+  
 
   const handleSendOtp = async () => {
     if (loading) return;
@@ -78,9 +98,11 @@ const RegisterScreen = ({ navigation }) => {
         });
       } else {
         const userData = userDoc.data();
-        if (userData.isMember) {
-          navigation.replace('Dashboard');
+        console.log('userLogData', userData.isMember)
+        if (userData.isMember === true) {
+          navigation.navigate('Dashboard');
         } else {
+          console.log('Complter')
           navigation.replace('CompleteProfile', {
             phone,
             uid: user.uid

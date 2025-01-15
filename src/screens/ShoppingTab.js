@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const { width } = Dimensions.get('window');
@@ -25,25 +26,25 @@ const ShoppingTab = ({ navigation }) => {
 
   useEffect(() => {
     // Set up real-time listener for products
-    const unsubscribe = firestore()
-      .collection('products')
-      .onSnapshot(
-        (querySnapshot) => {
-          const productsList = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-          setProducts(productsList);
-          setLoading(false);
-        },
-        (error) => {
-          console.error('Error fetching products:', error);
-          setLoading(false);
-        }
-      );
+    // const unsubscribe = firestore()
+    //   .collection('products')
+    //   .onSnapshot(
+    //     (querySnapshot) => {
+    //       const productsList = querySnapshot.docs.map(doc => ({
+    //         id: doc.id,
+    //         ...doc.data()
+    //       }));
+    //       setProducts(productsList);
+    //       setLoading(false);
+    //     },
+    //     (error) => {
+    //       console.error('Error fetching products:', error);
+    //       setLoading(false);
+    //     }
+    //   );
 
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
+    // // Cleanup subscription on unmount
+    // return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -54,9 +55,9 @@ const ShoppingTab = ({ navigation }) => {
       .collection('carts')
       .doc(user.phoneNumber)
       .onSnapshot(doc => {
-        if (doc.exists) {
-          const cartData = doc.data();
-          const count = cartData.items?.reduce((total, item) => total + item.quantity, 0) || 0;
+        if (doc?.exists) {
+          const cartData = doc?.data();
+          const count = cartData?.items?.reduce((total, item) => total + item.quantity, 0) || 0;
           setCartCount(count);
         } else {
           setCartCount(0);

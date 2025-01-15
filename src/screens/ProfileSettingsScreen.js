@@ -52,7 +52,7 @@ const ProfileSettingsScreen = () => {
       title: 'Address',
       description: 'Manage your addresses',
       icon: 'location-outline',
-      screen: 'AddressScreen'
+      screen: 'Addresses'
     },
     {
       id: 'communication',
@@ -80,7 +80,7 @@ const ProfileSettingsScreen = () => {
       title: 'Privacy Policy',
       description: 'View our privacy policy',
       icon: 'shield-outline',
-      screen: 'PrivacyPolicyScreen'
+      screen: 'PrivacyPolicy'
     },
     {
       id: 'refund',
@@ -131,16 +131,7 @@ const ProfileSettingsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#333" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Profile Settings</Text>
-      </View>
-
+    
       <ScrollView style={styles.scrollView}>
         <View style={styles.settingsContainer}>
           {settingsOptions.map((option, index) => (

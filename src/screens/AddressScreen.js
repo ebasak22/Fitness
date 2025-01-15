@@ -63,7 +63,6 @@ const AddressScreen = () => {
       const addressesSnapshot = await firestore()
         .collection('users')
         .doc(user.phoneNumber)
-        .collection('addresses')
         .get();
 
       const addressList = [];
@@ -175,7 +174,7 @@ const AddressScreen = () => {
 
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => navigation.navigate('AddNewAddress')}
+        onPress={() => navigation.navigate('ShippingAddressDetail')}
       >
         <Ionicons name="add-outline" size={24} color="#fff" />
         <Text style={styles.addButtonText}>Add New Address</Text>

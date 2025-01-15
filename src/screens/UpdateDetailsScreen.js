@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import axios from 'axios'; // Replace api utility with axios
+import firestore, { updateDoc } from '@react-native-firebase/firestore';
 
 const UpdateDetailsScreen = () => {
   const navigation = useNavigation();
@@ -26,6 +25,8 @@ const UpdateDetailsScreen = () => {
     age: '',
     gender: ''
   });
+
+  console.log('sdsds', formData)
 
   const calculateBMI = (height, weight) => {
     if (!height || !weight) return null;
@@ -57,7 +58,6 @@ const UpdateDetailsScreen = () => {
           navigation.navigate('Home');
           return;
         }
-
         // Set up real-time listener
         unsubscribe = firestore()
           .collection('users')
@@ -65,7 +65,7 @@ const UpdateDetailsScreen = () => {
           .onSnapshot(
             async (docSnapshot) => {
               try {
-                const apiData = await axios.get(`/api/users/${user.phoneNumber}`);
+              
                 
                 if (docSnapshot.exists) {
                   const userData = docSnapshot.data();
@@ -78,7 +78,6 @@ const UpdateDetailsScreen = () => {
                   });
                 }
               } catch (apiError) {
-                console.error('API error:', apiError);
                 if (docSnapshot.exists) {
                   const userData = docSnapshot.data();
                   setFormData({
@@ -124,42 +123,33 @@ const UpdateDetailsScreen = () => {
 
       const user = auth().currentUser;
       if (!user) throw new Error('User not authenticated');
+      
+        const userRef = firestore().collection('users').doc(user.phoneNumber);
+        console.log('sdsd', userRef)
+        const userDoc = await userRef.get();
+        // console.log('historRed', historyRef)
+        await updateDoc(userRef, {
+      'fitnessGoals.bmi':  calculateBMI(formData.height, formData.weight),        // Update the BMI value inside the fitness object
+      'fitnessGoals.height': formData.height ,  // Update the height value inside the fitness object
+      'fitnessGoals.weight':formData.weight})
 
-      const bmi = calculateBMI(formData.height, formData.weight);
-      const timestamp = firestore.FieldValue.serverTimestamp();
+      // // Update current user data
+      // batch.update(user, {
+      //   ...formData,
+      //   height: 20,
+      //   bmi:20,
+      //   updatedAt: timestamp
+      // });
 
-      const batch = firestore().batch();
-      const userRef = firestore().collection('users').doc(user.phoneNumber);
-      const historyRef = firestore()
-        .collection('users')
-        .doc(user.phoneNumber)
-        .collection('history')
-        .doc();
+      // // Add to history collection
+      // batch.set(userDoc, {
+      //   ...formData,
+      //   height: 20,
+      //   bmi:20,
+      //   timestamp
+      // });
 
-      // Update current user data
-      batch.update(userRef, {
-        ...formData,
-        bmi,
-        updatedAt: timestamp
-      });
-
-      // Add to history collection
-      batch.set(historyRef, {
-        ...formData,
-        bmi,
-        timestamp
-      });
-
-      // Commit the batch
-      await Promise.all([
-        batch.commit(),
-        axios.put(`/api/users/${user.phoneNumber}`, {
-          ...formData,
-          bmi,
-          updatedAt: new Date()
-        })
-      ]);
-
+  
       navigation.navigate('Menu');
     } catch (error) {
       console.error('Error updating details:', error);

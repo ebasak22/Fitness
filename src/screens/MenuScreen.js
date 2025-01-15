@@ -24,7 +24,6 @@ const MenuScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
-
   const fetchUserData = useCallback(async (user) => {
     if (!user) {
       navigation.navigate('Login');
@@ -51,6 +50,7 @@ const MenuScreen = () => {
           (documentSnapshot) => {
             if (documentSnapshot.exists) {
               const userData = documentSnapshot.data();
+           
               setUserData(userData);
               setProfileImage(userData.profileImage || null);
               setLoading(false);
@@ -104,7 +104,7 @@ const MenuScreen = () => {
       }
     };
 
-    enablePersistence();
+    // enablePersistence();
 
     let unsubscribeAuth;
     let unsubscribeFirestore;
@@ -121,8 +121,7 @@ const MenuScreen = () => {
 
     setupSubscriptions();
     return () => {
-      if (unsubscribeAuth) unsubscribeAuth();
-      if (unsubscribeFirestore) unsubscribeFirestore();
+    
     };
   }, [fetchUserData, navigation]);
   
@@ -196,18 +195,18 @@ const MenuScreen = () => {
           <View style={styles.metricsCard}>
             <View style={styles.metricsGrid}>
               <TouchableOpacity style={styles.metric} onPress={handleMetricClick}>
-                <Text style={styles.metricValue}>{userData?.height || '--'}</Text>
+                <Text style={styles.metricValue}>{userData?.fitnessGoals.height || '--'}</Text>
                 <Text style={styles.metricLabel}>Height (cm)</Text>
                 <Text style={styles.metricArrow}>›</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.metric} onPress={handleMetricClick}>
-                <Text style={styles.metricValue}>{userData?.weight || '--'}</Text>
+                <Text style={styles.metricValue}>{userData?.fitnessGoals.weight|| '--'}</Text>
                 <Text style={styles.metricLabel}>Weight (kg)</Text>
                 <Text style={styles.metricArrow}>›</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.metric} onPress={handleMetricClick}>
                 <Text style={styles.metricValue}>
-                  {calculateBMI(userData?.height, userData?.weight)}
+                  {calculateBMI(userData?.fitnessGoals.height, userData?.fitnessGoals.weight)}
                 </Text>
                 <Text style={styles.metricLabel}>BMI</Text>
                 <Text style={styles.metricArrow}>›</Text>

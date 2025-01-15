@@ -25,12 +25,14 @@ import GoalSettingScreen from './src/screens/GoalSettingScreen';
 import WorkoutTrackerScreen from './src/components/WorkoutTrackerScreen';
 import ExerciseChartScreen from './src/components/ExerciseChartScreen';
 import ExerciseVideosScreen from './src/components/ExerciseVideosScreen';
+import { ActivityIndicator, View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [userData, setUserData] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);  // Add loading state
 
   useEffect(() => {
     const fetchUserData = async (user) => {
@@ -51,6 +53,8 @@ const App = () => {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);  // Stop loading once data is fetched
       }
     };
 
@@ -61,6 +65,7 @@ const App = () => {
       } else {
         setUserData(null);
         setIsAuthenticated(false);
+        setLoading(false);  // Stop loading if no user is authenticated
       }
     });
     
@@ -68,10 +73,19 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
+  if (loading) {
+    // Show a loading screen or spinner while checking auth state
+    return <View style={{flex:1, justifyContent:"center", alignItems:'center'}}>
+      <ActivityIndicator color={'black'} size={'large'} />
+
+    </View>;  // Or create a custom loading screen
+  }
+
   return (
-    <NavigationContainer>
+
+      <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Register"
+       
         screenOptions={{
           headerShown: true,
           headerStyle: {
@@ -95,12 +109,13 @@ const App = () => {
               name="DefaultScreen" 
               component={DefaultScreen}
             />
+            <Stack.Screen name="Dashboard" component={DashboardScreen} />
           </>
         ) : (
           <>
             {/* Protected Routes */}
-            <Stack.Screen name="CompleteProfile" component={CompleteProfileScreen} />
             <Stack.Screen name="Dashboard" component={DashboardScreen} />
+            <Stack.Screen name="CompleteProfile" component={CompleteProfileScreen} />
             <Stack.Screen 
               name="Menu" 
               component={MenuScreen}

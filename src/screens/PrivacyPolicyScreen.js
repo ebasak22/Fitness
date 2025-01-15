@@ -21,17 +21,7 @@ const PrivacyPolicyScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <ChevronLeft color="#4a5568" size={24} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Privacy Policy</Text>
-        <View style={styles.placeholder} />
-      </View>
-
+    
       {/* Main content */}
       <ScrollView style={styles.content}>
         <View style={styles.contentHeader}>

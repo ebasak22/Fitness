@@ -68,35 +68,7 @@ const DashboardScreen = () => {
 
       const userRef = firestore().collection('users').doc(user.phoneNumber);
       const userDoc = await userRef.get();
-
-      if (userDoc.exists) {
-        const data = userDoc.data();
-        setUserData(data);
-        setProfileImage(data.profileImage ? { uri: data.profileImage } : defaultAvatar);
-        
-        // Fetch unread notifications count
-        const notificationsRef = userRef.collection('notifications');
-        const unreadQuery = await notificationsRef
-          .where('read', '==', false)
-          .get();
-        
-        setUnreadNotifications(unreadQuery.size);
-      } else {
-        // Create new user document if it doesn't exist
-        const defaultUserData = {
-          name: 'New User',
-          membershipPlan: 'No Plan',
-          membershipStatus: 'inactive',
-          planDuration: 'Not Set',
-          membershipStartDate: null,
-          membershipEndDate: null,
-          createdAt: firestore.FieldValue.serverTimestamp(),
-          updatedAt: firestore.FieldValue.serverTimestamp()
-        };
-
-        await userRef.set(defaultUserData);
-        setUserData(defaultUserData);
-      }
+   
     } catch (error) {
       console.error('Error fetching user data:', error);
       Alert.alert(

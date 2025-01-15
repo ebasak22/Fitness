@@ -46,6 +46,41 @@ const trainers = [
   }
 ];
 
+const membershipPlans = [
+  {
+    id: 'ignite',
+    title: 'IGNITE',
+    image: require('../assets/default-avatar.png'),
+    description: 'A 1-month plan to spark your fitness journey with unlimited gym access and expert guidance. Perfect for short-term goals.',
+    price: '1199.00',
+    color: '#FFE5E5'
+  },
+  {
+    id: 'glow',
+    title: 'GLOW',
+    image: require('../assets/default-avatar.png'),
+    description: 'A 3-month plan designed to help you build consistency and see visible progress.',
+    price: '2499.00',
+    color: '#E5F1FF'
+  },
+  {
+    id: 'blaze',
+    title: 'BLAZE',
+    image: require('../assets/default-avatar.png'),
+    description: 'A 6-month plan with 1 extra month and 5 free personal training sessions. Free registration included.',
+    price: '3999.00',
+    color: '#FFE8D9'
+  },
+  {
+    id: 'inferno',
+    title: 'INFERNO',
+    image: require('../assets/default-avatar.png'),
+    description: 'A 12-month ultimate package with 3 extra months and 8 free personal training sessions. Transform your fitness journey. Free registration included.',
+    price: '5999.00',
+    color: '#FFE5F1'
+  }
+];
+
 // ... [Previous membershipPlans array remains the same]
 
 const MembershipDetailsScreen = () => {
@@ -285,14 +320,38 @@ const MembershipDetailsScreen = () => {
       <ScrollView style={styles.scrollView}>
         {/* Membership Plans Section */}
         <Text style={styles.sectionHeader}>Choose Your Plan</Text>
-        {membershipPlans.map((plan) => (
-          <View 
-            key={plan.id} 
-            style={[styles.planCard, { backgroundColor: plan.color }]}
-          >
-            {/* ... [Previous plan card content remains the same] */}
-          </View>
-        ))}
+        <View style={styles.trainersContainer}>
+          {membershipPlans.map((trainer) => (
+            <>
+            <TouchableOpacity
+              key={trainer.id}
+              style={styles.trainerCard}
+              onPress={() => {
+                setSelectedTrainer(trainer);
+                setShowTrainerModal(true);
+              }}
+            >
+              <Image source={trainer.image} style={styles.trainerImage} />
+              <Text style={styles.trainerName}>{trainer.title}</Text>
+              <Text style={styles.trainerSpecialty}>{trainer.description}</Text>
+              <View style={styles.trainerRating}>
+              
+                <Text style={styles.ratingText}>{trainer.price}</Text>
+                
+              
+              </View>
+              <View style={{backgroundColor:"black", paddingVertical:6, paddingHorizontal:20}}>
+              <Text style={{color:"white"}}>Pay</Text>
+              </View>
+
+            
+
+            </TouchableOpacity>
+           
+            </>
+            
+          ))}
+        </View>
 
         {/* Personal Training Section */}
         <Text style={styles.sectionHeader}>Personal Training</Text>
@@ -312,6 +371,12 @@ const MembershipDetailsScreen = () => {
               <View style={styles.trainerRating}>
                 <Ionicons name="star" size={16} color="#FFD700" />
                 <Text style={styles.ratingText}>{trainer.rating}</Text>
+                
+                
+                
+                </View>
+              <View style={{backgroundColor:"black", paddingVertical:6, paddingHorizontal:20}}>
+              <Text style={{color:"white"}}>Pay</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -346,6 +411,7 @@ const styles = StyleSheet.create({
   trainersContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom:40,
     flexWrap: 'wrap',
     paddingHorizontal: 8,
   },
