@@ -116,15 +116,6 @@ const ShippingAddressDetailsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Shipping Address Detail</Text>
-      </View>
 
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -188,12 +179,13 @@ const ShippingAddressDetailsScreen = () => {
             <View style={styles.formField}>
               <Text style={styles.label}>State</Text>
               <View style={styles.pickerContainer}>
-                <Picker
+                <Picker                  
                   selectedValue={formData.state}
                   onValueChange={(value) => setFormData({...formData, state: value})}
-                  style={styles.picker}
+                  style={{  height: 50,
+                    color:formData.state === '' ? '#999': "black"}}
                 >
-                  <Picker.Item label="Select state" value="" />
+                   {!formData.state ?  <Picker.Item label="Select state" value="" /> : null}
                   {indianStates.map((state, index) => (
                     <Picker.Item
                       key={index}
@@ -320,7 +312,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   picker: {
-    height: 50,
+  
   },
   submitButton: {
     marginTop: 24,

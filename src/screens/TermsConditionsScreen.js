@@ -46,15 +46,7 @@ const TermsConditionsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <ChevronLeft color="#4a5568" size={28} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Terms & Conditions</Text>
-      </View>
+    
 
       {/* Content */}
       <ScrollView style={styles.content}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,68 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import ExerciseChartScreen from '../components/ExerciseChartScreen';
+import CalorieTrackerScreen from '../components/CalorieTrackerScreen';
 
-const HomeTab = ({ userData }) => {
+const HomeTab = () => {
   const navigation = useNavigation();
-  const [showHeartRate, setShowHeartRate] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const fetchUserData = useCallback(async () => {
+   
+    const user = auth().currentUser;
+    try {
+      const timeoutDuration = 15000;
+      const fetchWithTimeout = async (promise) => {
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Request timed out')), timeoutDuration)
+        );
+        return Promise.race([promise, timeoutPromise]);
+      };
+
+      const unsubscribe = firestore()
+        .collection('users')
+        .doc(user.phoneNumber)
+        .onSnapshot(
+          {
+            // Enable offline persistence
+            includeMetadataChanges: true,
+          },
+          (documentSnapshot) => {
+            if (documentSnapshot.exists) {
+              const userData = documentSnapshot.data();
+              console.log('sdsd', userData)
+              setUserData(userData);
+             
+            } else {
+              // Handle case where user document doesn't exist
+              console.warn('User document does not exist');
+            
+            }
+          }
+        );
+
+      return () => unsubscribe();
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+      setError(
+        err.message === 'Request timed out'
+          ? 'Connection timeout. Please check your internet connection.'
+          : 'Error loading profile data'
+      );
+      setLoading(false);
+    }
+  }, [navigation]);
+
+  useEffect(() => {
+    // Enable offline persistence when component mounts
+    
+    fetchUserData()
+  }, [fetchUserData, navigation]);
+
+
 
   const formatDate = (dateString) => {
     if (!dateString) return 'Not Set';
@@ -71,6 +129,11 @@ const HomeTab = ({ userData }) => {
           </View>
         )}
       </View>
+    </View>
+  );
+  const renderCalariTrakcer = () => (
+    <View style={styles.card}>
+      <CalorieTrackerScreen />
     </View>
   );
 
@@ -162,7 +225,7 @@ const HomeTab = ({ userData }) => {
             </View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('SetGoal')}
+              onPress={() => navigation.navigate('GoalSetting')}
             >
               <Text style={styles.buttonText}>Update Goals</Text>
             </TouchableOpacity>
@@ -173,7 +236,7 @@ const HomeTab = ({ userData }) => {
           <Text style={styles.noGoalsText}>No fitness goals set yet.</Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('SetGoal')}
+            onPress={() => navigation.navigate('GoalSetting')}
           >
             <Text style={styles.buttonText}>Set Your Goals</Text>
           </TouchableOpacity>
@@ -185,9 +248,11 @@ const HomeTab = ({ userData }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
+        {renderCalariTrakcer()}
         {renderMembershipCard()}
         {renderWarningMessage()}
         {renderFitnessGoals()}
+        <ExerciseChartScreen targetGoal={userData?.fitnessGoals?.targetGoal} />
       </ScrollView>
     </SafeAreaView>
   );

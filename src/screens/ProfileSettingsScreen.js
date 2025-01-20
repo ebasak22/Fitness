@@ -45,7 +45,7 @@ const ProfileSettingsScreen = () => {
       title: 'Edit Profile',
       description: 'Update your personal information',
       icon: 'person-outline',
-      screen: 'EditProfileScreen'
+      screen: 'EditProfile'
     },
     {
       id: 'address',
@@ -73,7 +73,7 @@ const ProfileSettingsScreen = () => {
       title: 'Terms & Conditions',
       description: 'Read our terms of service',
       icon: 'document-text-outline',
-      screen: 'TermsScreen'
+      screen: 'Terms'
     },
     {
       id: 'privacy',
@@ -87,21 +87,21 @@ const ProfileSettingsScreen = () => {
       title: 'Cancellation/Refund Policy',
       description: 'View our refund policies',
       icon: 'cash-outline',
-      screen: 'RefundPolicyScreen'
+      screen: 'RefundPolicy'
     },
     {
       id: 'about',
       title: 'About',
       description: 'Learn more about us',
       icon: 'information-circle-outline',
-      screen: 'AboutScreen'
+      screen: 'About'
     },
     {
       id: 'contact',
       title: 'Contact Us',
       description: 'Get in touch with our team',
       icon: 'mail-outline',
-      screen: 'ContactScreen'
+      screen: 'Contact'
     },
     {
       id: 'deleteAccount',

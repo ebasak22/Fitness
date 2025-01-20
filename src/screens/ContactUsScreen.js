@@ -39,15 +39,7 @@ const ContactUsScreen = () => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <ChevronLeft color="#ffffff" size={28} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Contact Us</Text>
-      </View>
+   
 
       <ScrollView style={styles.content}>
         {/* Welcome Section */}

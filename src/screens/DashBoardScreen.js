@@ -169,42 +169,6 @@ const DashboardScreen = () => {
     );
   }
 
-  const TabBar = () => {
-    return (
-      <Tab.Navigator
-        screenOptions={{
-          tabBarLabelStyle: styles.tabLabel,
-          tabBarStyle: styles.tabBar,
-          tabBarIndicatorStyle: styles.tabIndicator,
-          tabBarActiveTintColor: '#0d6efd',
-          tabBarInactiveTintColor: '#6c757d',
-          tabBarPressColor: 'rgba(13, 110, 253, 0.1)',
-        }}
-      >
-        <Tab.Screen 
-          name="Home" 
-          component={HomeTab}
-          options={{
-            tabBarLabel: 'Home'
-          }}
-        />
-        <Tab.Screen
-          name="Notifications"
-          component={NotificationsTab}
-          options={{
-            tabBarBadge: unreadNotifications > 0 ? unreadNotifications : null,
-            tabBarBadgeStyle: {
-              backgroundColor: '#dc3545',
-              color: '#fff'
-            }
-          }}
-        />
-        <Tab.Screen name="Shop" component={ShoppingTab} />
-        <Tab.Screen name="About" component={AboutTrainers} />
-      </Tab.Navigator>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -247,9 +211,37 @@ const DashboardScreen = () => {
         </View>
       </View>
 
-      <View style={styles.content}>
-        <TabBar />
-      </View>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarLabelStyle: styles.tabLabel,
+          tabBarStyle: styles.tabBar,
+          tabBarIndicatorStyle: styles.tabIndicator,
+          tabBarActiveTintColor: '#0d6efd',
+          tabBarInactiveTintColor: '#6c757d',
+          tabBarPressColor: 'rgba(13, 110, 253, 0.1)',
+        }}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={HomeTab}
+          options={{
+            tabBarLabel: 'Home'
+          }}
+        />
+        <Tab.Screen
+          name="Notifications"
+          component={NotificationsTab}
+          options={{
+            tabBarBadge: unreadNotifications > 0 ? unreadNotifications : null,
+            tabBarBadgeStyle: {
+              backgroundColor: '#dc3545',
+              color: '#fff'
+            }
+          }}
+        />
+        <Tab.Screen name="Shop" component={ShoppingTab} />
+        <Tab.Screen name="About" component={AboutTrainers} />
+      </Tab.Navigator>
     </View>
   );
 };

@@ -25,15 +25,7 @@ const RefundPolicyScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header with back button */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Icon name="chevron-left" size={24} color="#ffffff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Refund Policy</Text>
-      </View>
+    
 
       {/* Main content */}
       <ScrollView style={styles.content}>
