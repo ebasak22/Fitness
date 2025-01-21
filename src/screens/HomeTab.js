@@ -41,7 +41,6 @@ const HomeTab = () => {
           (documentSnapshot) => {
             if (documentSnapshot.exists) {
               const userData = documentSnapshot.data();
-              console.log('sdsd', userData)
               setUserData(userData);
              
             } else {

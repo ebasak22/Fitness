@@ -194,20 +194,8 @@ const DashboardScreen = () => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.updateButton}
-            onPress={handleUpdateMembership}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.buttonText}>Set Ignite Plan</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={handleLogout}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.logoutButtonText}>Logout</Text>
-          </TouchableOpacity>
+        
+        
         </View>
       </View>
 

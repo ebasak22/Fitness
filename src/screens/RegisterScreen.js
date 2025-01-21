@@ -20,9 +20,9 @@ const RegisterScreen = ({ navigation }) => {
   const [otp, setOtp] = useState('');
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [country, setCountry] = useState('');
   const [confirm, setConfirm] = useState(null);
 
-  console.log('cjheddlld')
 
   const isMember = async () => {
 
@@ -53,7 +53,7 @@ const RegisterScreen = ({ navigation }) => {
       }
 
       // The new way to trigger phone auth in React Native Firebase
-      const confirmation = await auth().signInWithPhoneNumber(phone);
+      const confirmation = await auth().signInWithPhoneNumber(`+${country ? country : '91'}${phone}`);
       setConfirm(confirmation);
       setShowOtp(true);
       Alert.alert('Success', 'OTP sent successfully');
@@ -141,11 +141,30 @@ const RegisterScreen = ({ navigation }) => {
               <PhoneInput
                 defaultCode="IN"
                 layout="first"
-                onChangeFormattedText={(text) => setPhone(text)}
+
                 withDarkTheme
                 containerStyle={styles.phoneInput}
                 textContainerStyle={styles.phoneInputText}
               />
+              <TextInput
+                style={{  width:'60%',
+                  left:'45%',
+                  bottom:'39.5%',
+                  alignSelf:'center',
+                  backgroundColor: '#f5f5f5',
+                  borderRadius: 8,
+                  position:'absolute',
+                  padding: 15,
+                  marginBottom: 20,
+                  fontSize: 16,}}
+                placeholder="Phone Number"
+                value={phone}
+                onChangeText={(text) => setPhone(text.replace(/\D/g, '').slice(0, 10))}
+                keyboardType="number-pad"
+                maxLength={10}
+                editable={!loading}
+              />
+              
 
               <TouchableOpacity
                 style={[styles.button, loading && styles.buttonDisabled]}

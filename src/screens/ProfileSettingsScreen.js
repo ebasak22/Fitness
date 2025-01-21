@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
 
 const ProfileSettingsScreen = () => {
   const navigation = useNavigation();
@@ -25,13 +26,16 @@ const ProfileSettingsScreen = () => {
         },
         { 
           text: "Logout", 
-          onPress: () => {
+          onPress: async() => {
             // Add your logout logic here
             // For example: auth.signOut()
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Login' }],
-            });
+            try {
+              await auth().signOut();
+              navigation.navigate('Register');
+            } catch (error) {
+              console.error('Error signing out:', error);
+              Alert.alert('Error', 'Failed to logout. Please try again.');
+            }
           },
           style: "destructive"
         }

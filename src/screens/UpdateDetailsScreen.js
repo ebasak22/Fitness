@@ -26,7 +26,6 @@ const UpdateDetailsScreen = () => {
     gender: ''
   });
 
-  console.log('sdsds', formData)
 
   const calculateBMI = (height, weight) => {
     if (!height || !weight) return null;
@@ -125,7 +124,6 @@ const UpdateDetailsScreen = () => {
       if (!user) throw new Error('User not authenticated');
       
         const userRef = firestore().collection('users').doc(user.phoneNumber);
-        console.log('sdsd', userRef)
         const userDoc = await userRef.get();
         // console.log('historRed', historyRef)
         await updateDoc(userRef, {
